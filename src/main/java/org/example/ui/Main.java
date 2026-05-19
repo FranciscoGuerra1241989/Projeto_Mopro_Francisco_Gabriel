@@ -1,57 +1,56 @@
 package org.example.ui;
 
 import org.example.model.*;
+import java.util.Scanner;
 
 public class Main {
     static void main(String[] args) {
         try {
             DB db = new DB("localhost:3306/streaming_db");
+            Scanner teclado = new Scanner(System.in);
 
+            // Deixamos dados guardados na DB para tu poderes testar o login
             Espectador espectador = new Espectador("gabriel123", "gabriel@email.com", "pass123");
             db.adicionarUtilizador(espectador);
 
             Filme filme = new Filme("Interstellar", 2014, 169);
             db.adicionarRecurso(filme);
 
-            Serie serie = new Serie("Breaking Bad", 2008);
+            System.out.println("=== BEM-VINDO À PLATAFORMA ===");
+            System.out.print("Introduza o seu username: ");
+            String usernameIntroduzido = teclado.nextLine();
 
-            Temporada t1 = new Temporada(1);
-            Episodio e1 = new Episodio("Pilot", 58);
-            Episodio e2 = new Episodio("Cat's in the Bag...", 48);
+            System.out.print("Introduza a sua password: ");
+            String passwordIntroduzida = teclado.nextLine();
 
-            serie.adicionarTemporada(t1);
-            serie.adicionarEpisodio(e1);
-            serie.adicionarEpisodio(e2);
+            System.out.println("\nA autenticar...");
+            UtilizadorRegistado userLogado = db.login(usernameIntroduzido, passwordIntroduzida);
 
-            db.adicionarRecurso(serie);
-
-            System.out.println("--- Teste de Login ---");
-            UtilizadorRegistado userLogado = db.login("gabriel123", "pass123");
             if (userLogado != null) {
                 System.out.println("Login efetuado com sucesso! Bem-vindo, " + userLogado.getNome());
+
+                // Agora podes interagir com o filme
+                System.out.println("\n[1] Marcar filme 'Interstellar' como visto");
+                System.out.println("[2] Sair");
+                System.out.print("Escolha uma opção: ");
+                int opcao = teclado.nextInt();
+
+                if (opcao == 1) {
+                    filme.marcarComoVisto((Espectador) userLogado);
+                    System.out.println("Sucesso! O filme foi adicionado à sua lista de vistos.");
+                } else {
+                    System.out.println("A sair do sistema...");
+                }
+
             } else {
-                System.out.println("Falha no login: credenciais inválidas.");
+                System.out.println("Falha no login: Username ou password incorretos.");
             }
 
-            System.out.println("\n--- Teste de Conteúdos Vistos ---");
-            System.out.println("O Gabriel já viu o filme " + filme.getTitulo() + "? " + (filme.isVisto(espectador) ? "Sim" : "Não"));
-
-            filme.marcarComoVisto(espectador);
-            System.out.println("-> Filme marcado como visto.");
-            System.out.println("O Gabriel já viu o filme " + filme.getTitulo() + "? " + (filme.isVisto(espectador) ? "Sim" : "Não"));
-
-            System.out.println("\n--- Teste de Interações ---");
-
-            Classificacao notaFilme = new Classificacao(espectador, filme, 5);
-            db.adicionarClassificacao(notaFilme);
-
-            Comentario criticaSerie = new Comentario(espectador, serie, "Simplesmente genial, uma das melhores séries de sempre!");
-            db.adicionarComentario(criticaSerie);
-
             System.out.println("\n" + db);
+            teclado.close();
 
         } catch (Exception e) {
-            System.out.println("Ocorreu um erro durante os testes: " + e.getMessage());
+            System.out.println("Ocorreu um erro: " + e.getMessage());
         }
     }
 }
