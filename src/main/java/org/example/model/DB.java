@@ -8,13 +8,13 @@ public class DB {
 
     private List<UtilizadorRegistado> lstUtilizadores;
     private List<Ator> lstAtores;
-    // Completar
+    private List<Recurso> lstRecursos; // Armazena Filmes e Séries de forma polimórfica
 
     public DB(String url) {
         this.url = url;
         this.lstAtores = new ArrayList<Ator>();
         this.lstUtilizadores = new ArrayList<>();
-        // Completar
+        this.lstRecursos = new ArrayList<>();
     }
 
     public void adicionarAtor(Ator a) {
@@ -25,8 +25,16 @@ public class DB {
         this.lstUtilizadores.add(u);
     }
 
+    public void adicionarRecurso(Recurso r) {
+        this.lstRecursos.add(r);
+    }
+
     public void removerAtor(Ator ator) {
         lstAtores.remove(ator);
+    }
+
+    public void removerRecurso(Recurso recurso) {
+        lstRecursos.remove(recurso);
     }
 
     public UtilizadorRegistado pesquisaUtilizador(String username) {
@@ -45,13 +53,45 @@ public class DB {
         return null;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("=== Estado atual da DB ===").append("\n");
-        sb.append("(").append(url).append(")");
-        sb.append(listarUtilizadores());
-        sb.append(listarAtores());
-        // Completar
+    public Ator pesquisaAtor(String nome) {
+        for (Ator a : lstAtores) {
+            if (a.temNome(nome)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public Recurso pesquisaRecurso(String titulo) {
+        for (Recurso r : lstRecursos) {
+            if (r.getTitulo().equalsIgnoreCase(titulo)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+
+    public List<Recurso> pesquisarRecursosPorTexto(String texto) {
+        List<Recurso> resultados = new ArrayList<>();
+        for (Recurso r : lstRecursos) {
+            if (r.correspondePesquisa(texto)) {
+                resultados.add(r);
+            }
+        }
+        return resultados;
+    }
+
+    public String listarRecursos() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nLista de Recursos (Filmes e Séries):");
+        if (lstRecursos.isEmpty()) {
+            sb.append(" (VAZIA)\n");
+        } else {
+            for (Recurso r : lstRecursos) {
+                sb.append("\n\t- ").append(r);
+            }
+        }
         return sb.toString();
     }
 
@@ -81,14 +121,13 @@ public class DB {
         return sb.toString();
     }
 
-    public Ator pesquisaAtor(String nome) {
-        for (Ator a : lstAtores) {
-            if (a.temNome(nome)) {
-                return a;
-            }
-        }
-        return null;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("=== Estado atual da DB ===").append("\n");
+        sb.append("(").append(url).append(")");
+        sb.append(listarUtilizadores());
+        sb.append(listarAtores());
+        sb.append(listarRecursos());
+        return sb.toString();
     }
-
-    // Completar com outras funcionalidades
 }
