@@ -1,14 +1,18 @@
 package org.example.model;
 
-public abstract class UtilizadorRegistado{
+public abstract class UtilizadorRegistado {
+    private String username;
     private String email;
-    private String nome;
     private String password;
 
-    public UtilizadorRegistado(String email, String nome, String password) {
+    public UtilizadorRegistado(String username, String email, String password) {
+        this.username = username;
         this.email = email;
-        this.nome = nome;
         this.password = password;
+    }
+
+    public String getNome() {
+        return username; // Como o enunciado pede username, usamos o username como o "nome" identificador
     }
 
     public boolean temPassord(String pass){
@@ -17,8 +21,10 @@ public abstract class UtilizadorRegistado{
 
     @Override
     public String toString() {
-        return nome + " <" + email + ">";
+        return username + " <" + email + ">";
     }
 
-    public boolean temNome(String username) { return username.equals(nome); }
+    public boolean temNome(String nome) {
+        return nome.equals(username);
+    }
 }

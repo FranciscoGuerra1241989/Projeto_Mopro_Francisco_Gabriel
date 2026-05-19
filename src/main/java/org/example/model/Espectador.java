@@ -6,8 +6,8 @@ import java.util.List;
 public class Espectador extends UtilizadorRegistado {
     private List<MarcavelComoVisto> conteudosVistos;
 
-    public Espectador(String nome, String username, String password) {
-        super(nome, username, password);
+    public Espectador(String username, String email, String password) {
+        super(username, email, password);
         this.conteudosVistos = new ArrayList<MarcavelComoVisto>();
     }
 
