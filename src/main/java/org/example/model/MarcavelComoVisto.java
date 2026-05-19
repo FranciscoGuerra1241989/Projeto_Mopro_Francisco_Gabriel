@@ -1,7 +1,7 @@
 package org.example.model;
 
 public interface MarcavelComoVisto {
-    boolean isVisto(Expectador utilizador);
+    boolean isVisto(Espectador utilizador);
 
-    void marcarComoVisto(Expectador utilizador) throws Exception;
+    void marcarComoVisto(Espectador utilizador) throws Exception;
 }

@@ -1,11 +1,16 @@
 package org.example.model;
 
-public class Filme extends Recurso implements MarcavelComoVisto {
+public class Episodio implements MarcavelComoVisto {
+    private String titulo;
     private int duracao;
 
-    public Filme(String titulo, int anoLancamento, int duracao) {
-        super(titulo, anoLancamento);
+    public Episodio(String titulo, int duracao) {
+        this.titulo = titulo;
         this.duracao = duracao;
+    }
+
+    public String getTitulo() {
+        return titulo;
     }
 
     public int getDuracao() {
@@ -30,6 +35,6 @@ public class Filme extends Recurso implements MarcavelComoVisto {
 
     @Override
     public String toString() {
-        return "[Filme] " + super.toString() + " - Duração: " + duracao + " min";
+        return titulo + " (" + duracao + " min)";
     }
 }
