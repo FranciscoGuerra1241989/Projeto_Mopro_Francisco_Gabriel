@@ -5,10 +5,10 @@ import org.example.utils.Utils;
 
 public class MenuUtilizadorRegistado {
     private DB imdb;
-    private Espectador utilizador;
+    private Utilizador utilizador;
     private String opcao;
 
-    public MenuUtilizadorRegistado(DB imdb, Espectador utilizador) {
+    public MenuUtilizadorRegistado(DB imdb, Utilizador utilizador) {
         this.utilizador = utilizador;
         this.imdb = imdb;
     }

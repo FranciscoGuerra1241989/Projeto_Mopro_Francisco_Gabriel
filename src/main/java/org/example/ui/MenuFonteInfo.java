@@ -61,8 +61,8 @@ public class MenuFonteInfo {
 
         // Utilizadores
         Admin admin = criarAdmin(imdb, "admin@example.com", "admin", "admin");
-        Espectador ana = criarEspectador("ana@example.com", "ana", "abc", imdb);
-        Espectador pedro = criarEspectador("pedro@example.com", "pedro", "qwerty", imdb);
+        Utilizador ana = criarEspectador("ana@example.com", "ana", "abc", imdb);
+        Utilizador pedro = criarEspectador("pedro@example.com", "pedro", "qwerty", imdb);
 
         // Atores
         Ator pierceBrosnan = criarAtor(imdb, "Pierce Brosnan", new Data(1953, 5, 16));
@@ -83,11 +83,11 @@ public class MenuFonteInfo {
         return ator;
     }
 
-    private static Espectador criarEspectador(String email, String nome, String password, DB imdb) {
-        Espectador espectador = new Espectador(email, nome, password);
-        imdb.adicionarUtilizador(espectador);
+    private static Utilizador criarEspectador(String email, String nome, String password, DB imdb) {
+        Utilizador utilizador = new Utilizador(email, nome, password);
+        imdb.adicionarUtilizador(utilizador);
         System.out.println("Espectador '" + nome + "' criado com sucesso");
-        return espectador;
+        return utilizador;
     }
 
     private static Admin criarAdmin(DB imdb, String email, String nome, String password) {
