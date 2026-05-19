@@ -5,21 +5,21 @@ import java.util.List;
 
 public class Filme extends Recurso implements MarcavelComoVisto {
     private int duracao;
-    private List<Utilizador> vistos;
+    private List<Expectador> vistos;
 
     public Filme(String titulo, int anoLancamento, int duracao) {
         super(titulo, anoLancamento);
         this.duracao = duracao;
-        this.vistos = new ArrayList<Utilizador>();
+        this.vistos = new ArrayList<Expectador>();
     }
 
     @Override
-    public boolean isVisto(Utilizador utilizador) {
+    public boolean isVisto(Expectador utilizador) {
         return vistos.contains(utilizador);
     }
 
     @Override
-    public void marcarComoVisto(Utilizador utilizador) throws Exception {
+    public void marcarComoVisto(Expectador utilizador) throws Exception {
         if (utilizador == null) {
             throw new Exception("Utilizador inválido");
         }

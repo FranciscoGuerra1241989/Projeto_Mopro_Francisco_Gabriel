@@ -22,7 +22,7 @@ public class Serie extends Recurso implements MarcavelComoVisto {
     }
 
     @Override
-    public boolean isVisto(Utilizador utilizador) {
+    public boolean isVisto(Expectador utilizador) {
         if (temporadas.isEmpty()) {
             return false;
         }
@@ -35,7 +35,7 @@ public class Serie extends Recurso implements MarcavelComoVisto {
     }
 
     @Override
-    public void marcarComoVisto(Utilizador utilizador) throws Exception {
+    public void marcarComoVisto(Expectador utilizador) throws Exception {
         if (utilizador == null) {
             throw new Exception("Utilizador inválido");
         }
