@@ -1,7 +1,7 @@
 package org.example.ui;
 
 import org.example.model.Admin;
-import org.example.model.Expectador;
+import org.example.model.Espectador;
 import org.example.model.DB;
 import org.example.model.UtilizadorRegistado;
 import org.example.utils.Utils;
@@ -48,9 +48,9 @@ public class MenuInicial {
                         if (ur instanceof Admin) {
                             MenuAdministrador ui = new MenuAdministrador(imdb);
                             ui.run();
-                        } else if (ur instanceof Expectador) {
+                        } else if (ur instanceof Espectador) {
                             System.out.println("User");
-                            MenuUtilizadorRegistado ui = new MenuUtilizadorRegistado(imdb, (Expectador) ur);
+                            MenuUtilizadorRegistado ui = new MenuUtilizadorRegistado(imdb, (Espectador) ur);
                             ui.run();
                         }
                     } catch (Exception e) {
