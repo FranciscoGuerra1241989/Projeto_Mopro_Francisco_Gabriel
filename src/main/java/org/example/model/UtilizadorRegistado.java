@@ -12,7 +12,7 @@ public abstract class UtilizadorRegistado {
     }
 
     public String getNome() {
-        return username; // Como o enunciado pede username, usamos o username como o "nome" identificador
+        return username;
     }
 
     public boolean temPassord(String pass){
