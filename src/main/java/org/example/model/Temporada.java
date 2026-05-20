@@ -12,14 +12,6 @@ public class Temporada implements MarcavelComoVisto {
     }
 
     @Override
-    public boolean isVisto(Espectador espectador) {
-        if (espectador == null) {
-            return false;
-        }
-        return espectador.jaViu(this);
-    }
-
-    @Override
     public void marcarComoVisto(Espectador espectador) throws Exception {
         if (espectador == null) {
             throw new Exception("Espectador inválido");

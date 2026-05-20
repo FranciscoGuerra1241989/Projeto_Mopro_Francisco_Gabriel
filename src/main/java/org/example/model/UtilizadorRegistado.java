@@ -1,6 +1,6 @@
 package org.example.model;
 
-public abstract class UtilizadorRegistado {
+public abstract class UtilizadorRegistado implements java.io.Serializable {
     private String username;
     private String email;
     private String password;
@@ -13,6 +13,14 @@ public abstract class UtilizadorRegistado {
 
     public String getNome() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean temPassord(String pass){

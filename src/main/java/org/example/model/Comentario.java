@@ -1,6 +1,6 @@
 package org.example.model;
 
-public class Comentario {
+public class Comentario implements java.io.Serializable {
     private Espectador espectador;
     private Recurso recurso;
     private String texto;
@@ -24,16 +24,8 @@ public class Comentario {
         return espectador;
     }
 
-    public Recurso getRecurso() {
-        return recurso;
-    }
-
-    public String getTexto() {
-        return texto;
-    }
-
     @Override
     public String toString() {
-        return espectador.getNome() + " comentou em " + recurso.getTitulo() + ": \"" + texto + "\"";
+        return recurso.getTitulo() + ": \"" + texto + "\" (por: " + espectador.getNome() + ")";
     }
 }

@@ -1,6 +1,6 @@
 package org.example.model;
 
-public class Classificacao {
+public class Classificacao implements java.io.Serializable {
     private Espectador espectador;
     private Recurso recurso;
     private int nota;
@@ -24,16 +24,12 @@ public class Classificacao {
         return espectador;
     }
 
-    public Recurso getRecurso() {
-        return recurso;
-    }
-
     public int getNota() {
         return nota;
     }
 
     @Override
     public String toString() {
-        return espectador.getNome() + " deu " + nota + " estrelas a " + recurso.getTitulo();
+        return recurso.getTitulo() + " -> " + nota + " estrelas (por: " + espectador.getNome() + ")";
     }
 }

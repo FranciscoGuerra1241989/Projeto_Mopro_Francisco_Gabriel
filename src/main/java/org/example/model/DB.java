@@ -3,7 +3,7 @@ package org.example.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DB {
+public class DB implements java.io.Serializable {
     private String url;
     private List<UtilizadorRegistado> lstUtilizadores;
     private List<Ator> lstAtores;
@@ -13,7 +13,7 @@ public class DB {
 
     public DB(String url) {
         this.url = url;
-        this.lstAtores = new ArrayList<Ator>();
+        this.lstAtores = new ArrayList<>();
         this.lstUtilizadores = new ArrayList<>();
         this.lstRecursos = new ArrayList<>();
         this.lstClassificacoes = new ArrayList<>();
@@ -121,6 +121,60 @@ public class DB {
             }
         }
         return sb.toString();
+    }
+
+    public String listarClassificacoesDoUtilizador(UtilizadorRegistado u) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nAs Minhas Classificações:");
+        int cont = 0;
+        for (Classificacao c : lstClassificacoes) {
+            if (c.getEspectador().equals(u)) {
+                sb.append("\n\t- ").append(c);
+                cont++;
+            }
+        }
+        if (cont == 0) {
+            sb.append(" (Ainda não classificaste nenhum conteúdo)\n");
+        }
+        return sb.toString();
+    }
+
+    public String listarComentariosDoUtilizador(UtilizadorRegistado u) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nOs Meus Comentários:");
+        int cont = 0;
+        for (Comentario c : lstComentarios) {
+            if (c.getEspectador().equals(u)) {
+                sb.append("\n\t- ").append(c);
+                cont++;
+            }
+        }
+        if (cont == 0) {
+            sb.append(" (Ainda não escreveste nenhum comentário)\n");
+        }
+        return sb.toString();
+    }
+
+    public static void gravarDados(DB imdb, String nomeFicheiro) {
+        try (java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(new java.io.FileOutputStream(nomeFicheiro))) {
+            oos.writeObject(imdb);
+            System.out.println("[Sistema] Dados guardados com sucesso localmente!");
+        } catch (java.io.IOException e) {
+            System.out.println("[Erro] Não foi possível guardar os dados: " + e.getMessage());
+        }
+    }
+
+    public static DB carregarDados(String nomeFicheiro) {
+        try (java.io.ObjectInputStream ois = new java.io.ObjectInputStream(new java.io.FileInputStream(nomeFicheiro))) {
+            System.out.println("[Sistema] Dados anteriores carregados com sucesso!");
+            return (DB) ois.readObject();
+        } catch (java.io.FileNotFoundException e) {
+            System.out.println("[Sistema] Nenhum ficheiro de dados encontrado. A iniciar base de dados vazia...");
+            return null;
+        } catch (Exception e) {
+            System.out.println("[Erro] Erro ao carregar dados: " + e.getMessage());
+            return null;
+        }
     }
 
     @Override

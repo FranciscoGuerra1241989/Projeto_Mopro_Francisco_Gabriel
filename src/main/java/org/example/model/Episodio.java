@@ -1,28 +1,20 @@
 package org.example.model;
 
 public class Episodio implements MarcavelComoVisto {
+    private int numero;
     private String titulo;
-    private int duracao;
 
-    public Episodio(String titulo, int duracao) {
+    public Episodio(int numero, String titulo) {
+        this.numero = numero;
         this.titulo = titulo;
-        this.duracao = duracao;
+    }
+
+    public int getNumero() {
+        return numero;
     }
 
     public String getTitulo() {
         return titulo;
-    }
-
-    public int getDuracao() {
-        return duracao;
-    }
-
-    @Override
-    public boolean isVisto(Espectador espectador) {
-        if (espectador == null) {
-            return false;
-        }
-        return espectador.jaViu(this);
     }
 
     @Override
@@ -35,6 +27,6 @@ public class Episodio implements MarcavelComoVisto {
 
     @Override
     public String toString() {
-        return titulo + " (" + duracao + " min)";
+        return "Episódio " + numero + ": " + titulo;
     }
 }

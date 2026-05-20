@@ -3,33 +3,18 @@ package org.example.model;
 public class Filme extends Recurso implements MarcavelComoVisto {
     private int duracao;
 
-    public Filme(String titulo, int anoLancamento, int duracao) {
-        super(titulo, anoLancamento);
+    public Filme(String titulo, int ano, int duracao) {
+        super(titulo, ano);
         this.duracao = duracao;
-    }
-
-    public int getDuracao() {
-        return duracao;
-    }
-
-    @Override
-    public boolean isVisto(Espectador espectador) {
-        if (espectador == null) {
-            return false;
-        }
-        return espectador.jaViu(this);
     }
 
     @Override
     public void marcarComoVisto(Espectador espectador) throws Exception {
-        if (espectador == null) {
-            throw new Exception("Espectador inválido");
-        }
         espectador.marcarComoVisto(this);
     }
 
     @Override
     public String toString() {
-        return "[Filme] " + super.toString() + " - Duração: " + duracao + " min";
+        return "[Filme] " + titulo + " (" + ano + ") - " + duracao + " min";
     }
 }

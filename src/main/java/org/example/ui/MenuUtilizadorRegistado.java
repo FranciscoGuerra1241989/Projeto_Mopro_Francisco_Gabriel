@@ -33,9 +33,10 @@ public class MenuUtilizadorRegistado {
             System.out.println("#                                               #");
             System.out.println("#  [ INTERAÇÃO COM CONTEÚDOS ]                 #");
             System.out.println("#  7. Pesquisar recurso por título              #");
-            System.out.println("#  8. Marcar filme/série como VISTO             #");
-            System.out.println("#  9. Classificar um filme/série (1-5 estrelas) #");
-            System.out.println("# 10. Escrever um comentário/crítica            #");
+            System.out.println("#  8. Pesquisar ator por nome                   #");
+            System.out.println("#  9. Marcar filme/série como VISTO             #");
+            System.out.println("#  10. Classificar um filme/série (1-5 estrelas)#");
+            System.out.println("#  11. Escrever um comentário/crítica           #");
             System.out.println("#                                               #");
             System.out.println("#  0. Voltar (Log-out)                          #");
             System.out.println("#################################################");
@@ -45,99 +46,178 @@ public class MenuUtilizadorRegistado {
 
             switch (opcao) {
                 case "1":
-                    System.out.println("\n=== O MEU HISTÓRICO DE VISTOS ===");
-                    if (utilizador.getConteudosVistos().isEmpty()) {
-                        System.out.println("Ainda não viste nenhum conteúdo.");
-                    } else {
-                        for (MarcavelComoVisto m : utilizador.getConteudosVistos()) {
-                            System.out.println("- " + m);
+                    String voltar1;
+                    do {
+                        System.out.println("\n=== O MEU HISTÓRICO DE VISTOS ===");
+                        if (utilizador.getConteudosVistos().isEmpty()) {
+                            System.out.println("Ainda não viste nenhum conteúdo.");
+                        } else {
+                            for (MarcavelComoVisto m : utilizador.getConteudosVistos()) {
+                                System.out.println("- " + m);
+                            }
                         }
-                    }
+                        voltar1 = Utils.readLineFromConsole("\nDigite 0 para voltar ao menu: ");
+                    } while (!voltar1.equals("0"));
                     break;
 
                 case "2":
-                    System.out.println("\n=== ALTERAR DADOS DA CONTA ===");
-                    String novoUser = Utils.readLineFromConsole("Introduza o novo username (ou Enter para manter): ");
-                    String novaPass = Utils.readLineFromConsole("Introduza a nova password (ou Enter para manter): ");
-                    System.out.println("Dados registados temporariamente na sessão!");
+                    String voltar2;
+                    do {
+                        System.out.println("\n=== ALTERAR DADOS DA CONTA ===");
+                        System.out.println("1. Alterar Username");
+                        System.out.println("2. Alterar Password");
+                        System.out.println("0. Voltar atrás");
+                        String subOpcao = Utils.readLineFromConsole("Escolha uma opção: ");
+
+                        if (subOpcao.equals("1")) {
+                            String novoUser = Utils.readLineFromConsole("Introduza o novo username: ");
+                            if (!novoUser.trim().isEmpty() && !novoUser.equalsIgnoreCase("admin")) {
+                                utilizador.setUsername(novoUser);
+                                System.out.println("Username atualizado com sucesso!");
+                            } else {
+                                System.out.println("Username inválido.");
+                            }
+                        } else if (subOpcao.equals("2")) {
+                            String novaPass = Utils.readLineFromConsole("Introduza a nova password: ");
+                            if (!novaPass.trim().isEmpty()) {
+                                utilizador.setPassword(novaPass);
+                                System.out.println("Password atualizada com sucesso!");
+                            } else {
+                                System.out.println("Password inválida.");
+                            }
+                        }
+                        voltar2 = subOpcao.equals("0") ? "0" : Utils.readLineFromConsole("\nDigite 0 para voltar ao menu: ");
+                    } while (!voltar2.equals("0"));
                     break;
 
                 case "3":
-                    System.out.println("\n=== AS MINHAS AVALIAÇÕES E CRÍTICAS ===");
-                    System.out.println("--- Minhas Classificações ---");
-                    System.out.println(imdb.listarClassificacoes());
+                    String voltar3;
+                    do {
+                        System.out.println("\n=== AS MINHAS AVALIAÇÕES E CRÍTICAS ===");
+                        System.out.println(imdb.listarClassificacoesDoUtilizador(utilizador));
+                        System.out.println(imdb.listarComentariosDoUtilizador(utilizador));
+                        voltar3 = Utils.readLineFromConsole("\nDigite 0 para voltar ao menu: ");
+                    } while (!voltar3.equals("0"));
                     break;
 
                 case "4":
-                    System.out.println(imdb.listarRecursos());
+                    String voltar4;
+                    do {
+                        System.out.println(imdb.listarRecursos());
+                        voltar4 = Utils.readLineFromConsole("\nDigite 0 para voltar ao menu: ");
+                    } while (!voltar4.equals("0"));
                     break;
 
                 case "5":
-                    System.out.println(imdb.listarClassificacoes());
+                    String voltar5;
+                    do {
+                        System.out.println(imdb.listarClassificacoes());
+                        voltar5 = Utils.readLineFromConsole("\nDigite 0 para voltar ao menu: ");
+                    } while (!voltar5.equals("0"));
                     break;
 
                 case "6":
-                    System.out.println(imdb.listarComentarios());
+                    String voltar6;
+                    do {
+                        System.out.println(imdb.listarComentarios());
+                        voltar6 = Utils.readLineFromConsole("\nDigite 0 para voltar ao menu: ");
+                    } while (!voltar6.equals("0"));
                     break;
 
                 case "7":
-                    String termo = Utils.readLineFromConsole("Introduza o título a pesquisar: ");
-                    Recurso rec = imdb.getRecursoPorTitulo(termo);
-                    if (rec != null) {
-                        System.out.println("\nEncontrado: " + rec);
-                    } else {
-                        System.out.println("Nenhum recurso encontrado com esse título.");
-                    }
+                    String voltar7;
+                    do {
+                        System.out.println("\n=== PESQUISAR RECURSO REAIS ===");
+                        String termo = Utils.readLineFromConsole("Introduza o título a pesquisar: ");
+                        Recurso rec = imdb.getRecursoPorTitulo(termo);
+                        if (rec != null) {
+                            System.out.println("\nEncontrado: " + rec);
+                        } else {
+                            System.out.println("Nenhum recurso encontrado com esse título.");
+                        }
+                        voltar7 = Utils.readLineFromConsole("\nDigite 0 para voltar ao menu: ");
+                    } while (!voltar7.equals("0"));
                     break;
 
                 case "8":
-                    System.out.println(imdb.listarRecursos());
-                    String titVisto = Utils.readLineFromConsole("Nome do filme/série a marcar como visto: ");
-                    Recurso recVisto = imdb.getRecursoPorTitulo(titVisto);
-                    if (recVisto != null && recVisto instanceof MarcavelComoVisto) {
-                        try {
-                            ((MarcavelComoVisto) recVisto).marcarComoVisto(utilizador);
-                            System.out.println("Conteúdo adicionado ao teu histórico!");
-                        } catch (Exception e) {
-                            System.out.println("Erro: " + e.getMessage());
+                    String voltar8;
+                    do {
+                        System.out.println("\n=== PESQUISAR ATOR ===");
+                        String nomeAtor = Utils.readLineFromConsole("Introduza o nome do ator a pesquisar: ");
+                        Ator ator = imdb.pesquisaAtor(nomeAtor);
+                        if (ator != null) {
+                            System.out.println("\nEncontrado: " + ator);
+                        } else {
+                            System.out.println("Nenhum ator encontrado com esse nome.");
                         }
-                    } else {
-                        System.out.println("Recurso não encontrado ou inválido.");
-                    }
+                        voltar8 = Utils.readLineFromConsole("\nDigite 0 para voltar ao menu: ");
+                    } while (!voltar8.equals("0"));
                     break;
 
                 case "9":
-                    System.out.println(imdb.listarRecursos());
-                    String titClass = Utils.readLineFromConsole("Nome do filme/série a classificar: ");
-                    Recurso recClass = imdb.getRecursoPorTitulo(titClass);
-                    if (recClass != null) {
-                        try {
-                            int nota = Utils.readIntFromConsole("Nota (1 a 5 estrelas): ");
-                            imdb.adicionarClassificacao(new Classificacao(utilizador, recClass, nota));
-                            System.out.println("Classificação submetida com sucesso!");
-                        } catch (Exception e) {
-                            System.out.println("Erro: " + e.getMessage());
+                    String voltar9;
+                    do {
+                        System.out.println(imdb.listarRecursos());
+                        String titVisto = Utils.readLineFromConsole("Nome do filme/série a marcar como visto: ");
+                        Recurso recVisto = imdb.getRecursoPorTitulo(titVisto);
+
+                        if (recVisto != null) {
+                            MarcavelComoVisto alvo = selecionarAlvoInteracao(recVisto);
+                            try {
+                                alvo.marcarComoVisto(utilizador);
+                                System.out.println("Adicionado ao teu histórico com sucesso!");
+                            } catch (Exception e) {
+                                System.out.println("Erro: " + e.getMessage());
+                            }
+                        } else {
+                            System.out.println("Recurso não encontrado.");
                         }
-                    } else {
-                        System.out.println("Recurso não encontrado.");
-                    }
+                        voltar9 = Utils.readLineFromConsole("\nDigite 0 para voltar ao menu: ");
+                    } while (!voltar9.equals("0"));
                     break;
 
                 case "10":
-                    System.out.println(imdb.listarRecursos());
-                    String titCom = Utils.readLineFromConsole("Nome do filme/série a comentar: ");
-                    Recurso recCom = imdb.getRecursoPorTitulo(titCom);
-                    if (recCom != null) {
-                        try {
-                            String textoCom = Utils.readLineFromConsole("Escreve o teu comentário: ");
-                            imdb.adicionarComentario(new Comentario(utilizador, recCom, textoCom));
-                            System.out.println("Comentário publicado!");
-                        } catch (Exception e) {
-                            System.out.println("Erro: " + e.getMessage());
+                    String voltar10;
+                    do {
+                        System.out.println(imdb.listarRecursos());
+                        String titClass = Utils.readLineFromConsole("Nome do filme/série a classificar: ");
+                        Recurso recClass = imdb.getRecursoPorTitulo(titClass);
+                        if (recClass != null) {
+                            MarcavelComoVisto alvo = selecionarAlvoInteracao(recClass);
+                            try {
+                                int nota = Utils.readIntFromConsole("Nota (1 a 5 estrelas): ");
+                                imdb.adicionarClassificacao(new Classificacao(utilizador, (Recurso) alvo, nota));
+                                System.out.println("Classificação submetida com sucesso!");
+                            } catch (Exception e) {
+                                System.out.println("Erro: " + e.getMessage());
+                            }
+                        } else {
+                            System.out.println("Recurso não encontrado.");
                         }
-                    } else {
-                        System.out.println("Recurso não encontrado.");
-                    }
+                        voltar10 = Utils.readLineFromConsole("\nDigite 0 para voltar ao menu: ");
+                    } while (!voltar10.equals("0"));
+                    break;
+
+                case "11":
+                    String voltar11;
+                    do {
+                        System.out.println(imdb.listarRecursos());
+                        String titCom = Utils.readLineFromConsole("Nome do filme/série a comentar: ");
+                        Recurso recCom = imdb.getRecursoPorTitulo(titCom);
+                        if (recCom != null) {
+                            MarcavelComoVisto alvo = selecionarAlvoInteracao(recCom);
+                            try {
+                                String textoCom = Utils.readLineFromConsole("Escreve o teu comentário: ");
+                                imdb.adicionarComentario(new Comentario(utilizador, (Recurso) alvo, textoCom));
+                                System.out.println("Comentário publicado!");
+                            } catch (Exception e) {
+                                System.out.println("Erro: " + e.getMessage());
+                            }
+                        } else {
+                            System.out.println("Recurso não encontrado.");
+                        }
+                        voltar11 = Utils.readLineFromConsole("\nDigite 0 para voltar ao menu: ");
+                    } while (!voltar11.equals("0"));
                     break;
 
                 case "0":
@@ -150,5 +230,41 @@ public class MenuUtilizadorRegistado {
             }
         } while (!opcao.equals("0"));
     }
-}
 
+    private MarcavelComoVisto selecionarAlvoInteracao(Recurso recurso) {
+        if (recurso instanceof Filme) {
+            return (MarcavelComoVisto) recurso;
+        }
+
+        if (recurso instanceof Serie) {
+            Serie serie = (Serie) recurso;
+            System.out.println("\nEsta é uma Série. O que pretendes selecionar?");
+            System.out.println("1. A Série completa");
+            System.out.println("2. Uma Temporada específica");
+            System.out.println("3. Um Episódio específico");
+
+            String escolha = Utils.readLineFromConsole("Escolha uma opção: ");
+
+            switch (escolha) {
+                case "1":
+                    return serie;
+                case "2":
+                    int numTemp = Utils.readIntFromConsole("Introduza o número da temporada: ");
+                    Temporada t = serie.getTemporadaPorNumero(numTemp);
+                    if (t != null) return t;
+                    System.out.println("Temporada não encontrada. A focar na série global.");
+                    return serie;
+                case "3":
+                    int numEp = Utils.readIntFromConsole("Introduza o número do episódio: ");
+                    Episodio e = serie.getEpisodioPorNumero(numEp);
+                    if (e != null) return e;
+                    System.out.println("Episódio não encontrado. A focar na série global.");
+                    return serie;
+                default:
+                    System.out.println("Opção inválida. A focar na série global.");
+                    return serie;
+            }
+        }
+        return null;
+    }
+}

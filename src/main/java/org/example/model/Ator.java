@@ -2,7 +2,7 @@ package org.example.model;
 
 import org.example.utils.Data;
 
-public class Ator {
+public class Ator implements java.io.Serializable {
     private String nome;
     private Data dataNascimento;
 
@@ -11,10 +11,16 @@ public class Ator {
         this.dataNascimento = dataNascimento;
     }
 
-    @Override
-    public String toString() {
-        return nome + " [" + dataNascimento + "]";
+    public String getNome() {
+        return nome;
     }
 
-    public boolean temNome(String nome) {return this.nome.equals(nome);}
+    public boolean temNome(String nome) {
+        return this.nome.equalsIgnoreCase(nome);
+    }
+
+    @Override
+    public String toString() {
+        return nome + " (Nascido a: " + dataNascimento + ")";
+    }
 }

@@ -1,40 +1,23 @@
 package org.example.model;
 
-import java.util.ArrayList;
-import java.util.List;
+public abstract class Recurso implements java.io.Serializable {
+    protected String titulo;
+    protected int ano;
 
-public abstract class Recurso implements Pesquisavel {
-    private String titulo;
-    private int anoLancamento;
-    private List<Ator> elenco;
-
-    public Recurso(String titulo, int anoLancamento) {
+    public Recurso(String titulo, int ano) {
         this.titulo = titulo;
-        this.anoLancamento = anoLancamento;
-        this.elenco = new ArrayList<Ator>();
+        this.ano = ano;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public int getAnoLancamento() {
-        return anoLancamento;
-    }
-
-    public void adicionarAtor(Ator ator) {
-        if (!elenco.contains(ator)) {
-            elenco.add(ator);
-        }
-    }
-
     @Override
-    public boolean correspondePesquisa(String texto) {
-        return titulo.toLowerCase().contains(texto.toLowerCase());
-    }
-
-    @Override
-    public String toString() {
-        return titulo + " (" + anoLancamento + ")";
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Recurso outro = (Recurso) obj;
+        return titulo.equalsIgnoreCase(outro.titulo);
     }
 }

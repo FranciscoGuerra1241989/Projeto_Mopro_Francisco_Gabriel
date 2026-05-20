@@ -4,53 +4,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Serie extends Recurso implements MarcavelComoVisto {
-    private List<Temporada> temporadas;
-    private List<Episodio> episodios;
+    private List<Temporada> listaTemporadas;
+    private List<Episodio> listaEpisodios;
+    private int qtdTemporadas;
+    private int qtdEpisodios;
 
-    public Serie(String titulo, int anoLancamento) {
-        super(titulo, anoLancamento);
-        this.temporadas = new ArrayList<Temporada>();
-        this.episodios = new ArrayList<Episodio>();
-    }
+    public Serie(String titulo, int ano, int qtdTemporadas, int qtdEpisodios) {
+        super(titulo, ano);
+        this.qtdTemporadas = qtdTemporadas;
+        this.qtdEpisodios = qtdEpisodios;
+        this.listaTemporadas = new ArrayList<>();
+        this.listaEpisodios = new ArrayList<>();
 
-    public List<Temporada> getTemporadas() {
-        return temporadas;
-    }
-
-    public List<Episodio> getEpisodios() {
-        return episodios;
-    }
-
-    public void adicionarTemporada(Temporada temporada) {
-        if (temporada != null && !temporadas.contains(temporada)) {
-            temporadas.add(temporada);
+        // Inicializa automaticamente as temporadas e episódios com base na quantidade
+        for (int i = 1; i <= qtdTemporadas; i++) {
+            listaTemporadas.add(new Temporada(i));
+        }
+        for (int i = 1; i <= qtdEpisodios; i++) {
+            listaEpisodios.add(new Episodio(i, "Episódio " + i));
         }
     }
 
-    public void adicionarEpisodio(Episodio episodio) {
-        if (episodio != null && !episodios.contains(episodio)) {
-            episodios.add(episodio);
+    public Temporada getTemporadaPorNumero(int numero) {
+        for (Temporada t : listaTemporadas) {
+            if (t.getNumero() == numero) return t;
         }
+        return null;
     }
 
-    @Override
-    public boolean isVisto(Espectador espectador) {
-        if (espectador == null) {
-            return false;
+    public Episodio getEpisodioPorNumero(int numero) {
+        for (Episodio e : listaEpisodios) {
+            if (e.getNumero() == numero) return e;
         }
-        return espectador.jaViu(this);
+        return null;
     }
 
     @Override
     public void marcarComoVisto(Espectador espectador) throws Exception {
-        if (espectador == null) {
-            throw new Exception("Espectador inválido");
-        }
         espectador.marcarComoVisto(this);
     }
 
     @Override
     public String toString() {
-        return "[Série] " + super.toString() + " - " + temporadas.size() + " temporadas, " + episodios.size() + " episódios";
+        return "[Série] " + titulo + " (" + ano + ") - " + qtdTemporadas + " Temps, " + qtdEpisodios + " Eps";
     }
 }
