@@ -15,6 +15,7 @@ public class Main {
 
                 Espectador admin = new Espectador("admin", "admin@streaming.com", "admin");
                 db.adicionarUtilizador(admin);
+
                 System.out.println("[Sistema] Base de dados inicializada com os dados solicitados.");
             }
 

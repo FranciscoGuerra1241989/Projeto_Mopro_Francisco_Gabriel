@@ -24,7 +24,7 @@ public class Utils {
                 int iInt = Integer.parseInt(strInt);
                 return iInt;
             } catch (NumberFormatException ex) {
-                //Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+
             }
         } while (true);
     }
@@ -36,7 +36,7 @@ public class Utils {
                 double iDouble = Double.parseDouble(strDouble);
                 return iDouble;
             } catch (NumberFormatException ex) {
-                //Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+
             }
         } while (true);
     }
@@ -45,7 +45,6 @@ public class Utils {
         do {
             try {
                 String strData = readLineFromConsole(strPrompt + "(formato: dd-MM-yyyy)");
-                // dd-MM-yyyy
                 String[] arr = strData.split("-");
                 int dia = Integer.parseInt(arr[0]);
                 int mes = Integer.parseInt(arr[1]);

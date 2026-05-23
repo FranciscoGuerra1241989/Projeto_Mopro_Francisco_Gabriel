@@ -31,7 +31,7 @@ public class MenuUtilizadorRegistado {
             System.out.println("#  5. Ver todas as classificações globais       #");
             System.out.println("#  6. Ver todos os comentários globais          #");
             System.out.println("#                                               #");
-            System.out.println("#  [ INTERAÇÃO COM CONTEÚDOS ]                 #");
+            System.out.println("#  [ INTERAÇÃO COM CONTEÚDOS ]                  #");
             System.out.println("#  7. Pesquisar recurso por título              #");
             System.out.println("#  8. Pesquisar ator por nome                   #");
             System.out.println("#  9. Marcar filme/série como VISTO             #");
