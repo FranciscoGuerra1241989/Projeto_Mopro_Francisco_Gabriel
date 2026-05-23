@@ -162,25 +162,29 @@ public class DB implements java.io.Serializable {
         return sb.toString();
     }
 
-    public static void gravarDados(DB imdb, String nomeFicheiro) {
-        try (java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(new java.io.FileOutputStream(nomeFicheiro))) {
-            oos.writeObject(imdb);
-            System.out.println("[Sistema] Dados guardados com sucesso localmente!");
-        } catch (java.io.IOException e) {
-            System.out.println("[Erro] Não foi possível guardar os dados: " + e.getMessage());
+    public static DB carregarDados(String caminhoFicheiro) {
+        java.io.File ficheiro = new java.io.File(caminhoFicheiro);
+
+        if (!ficheiro.exists()) {
+            return null;
+        }
+
+        try (java.io.ObjectInputStream ois = new java.io.ObjectInputStream(new java.io.FileInputStream(ficheiro))) {
+            DB dbCarregada = (DB) ois.readObject();
+            System.out.println("[Sistema] Dados recuperados do ficheiro com sucesso!");
+            return dbCarregada;
+        } catch (Exception e) {
+            System.out.println("[Erro] Erro ao carregar dados do ficheiro: " + e.getMessage());
+            return null;
         }
     }
 
-    public static DB carregarDados(String nomeFicheiro) {
-        try (java.io.ObjectInputStream ois = new java.io.ObjectInputStream(new java.io.FileInputStream(nomeFicheiro))) {
-            System.out.println("[Sistema] Dados anteriores carregados com sucesso!");
-            return (DB) ois.readObject();
-        } catch (java.io.FileNotFoundException e) {
-            System.out.println("[Sistema] Nenhum ficheiro de dados encontrado. A iniciar base de dados vazia...");
-            return null;
+    public static void gravarDados(DB db, String caminhoFicheiro) {
+        try (java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(new java.io.FileOutputStream(caminhoFicheiro))) {
+            oos.writeObject(db);
+            System.out.println("[Sistema] Alterações gravadas no ficheiro!");
         } catch (Exception e) {
-            System.out.println("[Erro] Erro ao carregar dados: " + e.getMessage());
-            return null;
+            System.out.println("[Erro] Erro ao gravar dados no ficheiro: " + e.getMessage());
         }
     }
 
