@@ -56,22 +56,19 @@ public class MenuFonteInfo {
     }
 
     private static DB construir() {
-        // Construção da empresa
+
         DB imdb = new DB("www.imdb.com");
 
-        // Utilizadores
         Admin admin = criarAdmin(imdb, "admin@example.com", "admin", "admin");
         Espectador ana = criarEspectador("ana@example.com", "ana", "abc", imdb);
         Espectador pedro = criarEspectador("pedro@example.com", "pedro", "qwerty", imdb);
 
-        // Atores
         Ator pierceBrosnan = criarAtor(imdb, "Pierce Brosnan", new Data(1953, 5, 16));
         Ator tomHardy = criarAtor(imdb, "Tom Hardy", new Data(1977, 9, 15));
         Ator helenMirren = criarAtor(imdb, "Helen Mirren", new Data(1945, 7, 26));
         Ator jonathanPrice = criarAtor(imdb, "Jonathan Price", new Data(1947, 6, 1));
         Ator cillianMurphy = criarAtor(imdb, "Cillian Murphy", new Data(1976, 5, 25));
 
-        // Completar
 
         return imdb;
     }
