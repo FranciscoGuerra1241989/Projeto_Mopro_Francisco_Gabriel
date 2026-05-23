@@ -36,6 +36,13 @@ public class DB implements java.io.Serializable {
         }
         return null;
     }
+    public void removerRecurso(Recurso r) {
+        this.lstRecursos.remove(r);
+    }
+
+    public void removerSerie(Serie s) {
+        this.lstRecursos.remove(s);
+    }
 
     public void adicionarUtilizador(UtilizadorRegistado u) {
         this.lstUtilizadores.add(u);

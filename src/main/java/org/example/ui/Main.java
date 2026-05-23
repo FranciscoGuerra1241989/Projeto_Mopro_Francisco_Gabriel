@@ -18,6 +18,7 @@ public class Main {
                 Filme f1 = new Filme("Interstellar", 2014, 169);
                 db.adicionarRecurso(f1);
 
+
                 System.out.println("[Sistema] Base de dados inicializada apenas com o administrador.");
             }
 
