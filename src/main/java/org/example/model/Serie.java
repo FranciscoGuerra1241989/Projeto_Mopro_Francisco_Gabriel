@@ -16,7 +16,6 @@ public class Serie extends Recurso implements MarcavelComoVisto {
         this.listaTemporadas = new ArrayList<>();
         this.listaEpisodios = new ArrayList<>();
 
-        // Inicializa automaticamente as temporadas e episódios com base na quantidade
         for (int i = 1; i <= qtdTemporadas; i++) {
             listaTemporadas.add(new Temporada(i));
         }
